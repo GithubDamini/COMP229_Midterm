@@ -1,93 +1,127 @@
-/* Ensure body and html take up full viewport height */
 body, html {
-    height: 120%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    
-    /* Centering any child content (like the form) */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  height: 120%;
+  margin: 0;
+  font-family: Arial, sans-serif;
   
-  
-  /* Basic styling for form container */
-  form {
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    
-    /* Styling for form container appearance */
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: rgb(249, 197, 225);
-    
-    /* Fixed width for form */
-    width: 300px;
-  }
-  
-  /* Basic styling for label containers */
-  label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-  
-  /* Styling for various input types */
-  input[type="text"],
-  input[type="number"],
-  input[type="email"]{
-    width: 100%;
-    padding: 8px;
-    margin-top: 2px;
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    font-size: 10px;
-  }
-  
-  
-  /* General button styling */
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-    /* Adjust width for buttons inside the button-group */
-    width: 48%; 
-  }
-  
-  /* Styling for submit button */
-  button[type="submit"] {
-    background-color: #4f6679;
-    color: white;
-  }
-  
-  /* Hover effect for submit button */
-  button[type="submit"]:hover {
-    background-color: #3a4d65;
-  }
-  
-  /* Styling for a generic button type */
-  button[type="button"] {
-    background-color: #e0e0e0;
-    color: #333;
-  }
-  
-  /* Hover effect for a generic button type */
-  button[type="button"]:hover {
-    background-color: #c7c7c7;
-  }
+  /* Centering any child content (like the form) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  
-  /* Style to align two buttons next to each other with a space in between */
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border: 1px dashed #be4b89; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(249, 197, 225);
+  width: 500px;
+}
+
+.name-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name-row label {
+  flex-basis: 45%;
+  margin-right: 10px;
+}
+
+.name-row label:last-child {
+  margin-right: 0;
+}
+
+.name-row label input {
+  width: 100%;
+}
+
+.position-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-input {
+  width: 100%; /* This will make the phone input take up the full width of its label */
+}
+
+label.phone-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 39%; /* This will make the label take up half the width of its container */
+}
+
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+input[type="text"], input[type="number"], input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  font-size: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 48%; 
+}
+
+button[type="submit"] {
+  background-color: #4f6679;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #3a4d65;
+}
+
+button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button[type="button"]:hover {
+  background-color: #c7c7c7;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+label > input[type="radio"] {
+  margin-right: 5px;
+}
+
+label > input[type="radio"] + span {
+  margin-right: 15px;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  font-size: 10px;
+  height: 80px;  /* Default height for the textarea, adjust as needed */
+  resize: vertical;  /* Allow users to resize the textarea vertically only */
+}
+

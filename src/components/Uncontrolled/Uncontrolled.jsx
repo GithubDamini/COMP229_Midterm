@@ -1,4 +1,4 @@
-import React, { useRef } from "react";  // Import useRef
+import React, { useRef } from "react";
 import "./uncontrolled.css";
 
 export default function UncontrolledComponent() {
@@ -8,11 +8,25 @@ export default function UncontrolledComponent() {
   const portfoliowebsiteRef = useRef(null);
   const positionRef = useRef(null);
   const phoneRef = useRef(null);
-  const relocateRef = useRef(null);
+  const relocateRef = useRef({ current: { value: null } });
   const messageRef = useRef(null);
+  const yesRef = useRef(null);
+  const noRef = useRef(null);
+  const notSureRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Validation for phone number to ensure it's 10 digits
+    if (phoneRef.current.value.length !== 10) {
+      alert("Phone number must be exactly 10 digits!");
+      return;
+    }
+
+    let relocate = "";
+    if (yesRef.current && yesRef.current.checked) relocate = "Yes";
+    else if (noRef.current && noRef.current.checked) relocate = "No";
+    else if (notSureRef.current && notSureRef.current.checked) relocate = "Not Sure";
 
     const firstname = firstnameRef.current.value;
     const lastname = lastnameRef.current.value;
@@ -20,9 +34,7 @@ export default function UncontrolledComponent() {
     const portfoliowebsite = portfoliowebsiteRef.current.value;
     const position = positionRef.current.value; 
     const phone = phoneRef.current.value;
-    const relocate = relocateRef.current.value;
     const message = messageRef.current.value;
-    
 
     let alertMessage = `Firstname: ${firstname}\nLastname: ${lastname}\nEmail: ${email}\nPortfolio Website: ${portfoliowebsite}\nPosition: ${position}\nPhone: ${phone}\nRelocate: ${relocate}\nMessage: ${message}`;
     alert(alertMessage);
@@ -35,71 +47,84 @@ export default function UncontrolledComponent() {
     portfoliowebsiteRef.current.value = "";
     positionRef.current.value = "";
     phoneRef.current.value = "";
-    relocateRef.current.value = "";
+    yesRef.current.checked = false;
+    noRef.current.checked = false;
+    notSureRef.current.checked = false;
     messageRef.current.value = "";
   };
-
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Firstname:
-        <input type="text" ref={firstnameRef} />
-      </label>
+  
+      <div className="name-row">
+        <label>
+          Firstname:
+          <input type="text" ref={firstnameRef} />
+        </label>
+  
+        <label>
+          Lastname:
+          <input type="text" ref={lastnameRef} />
+        </label>
+      </div>
       <br />
-
-      <label>
-        Lastname:
-        <input type="text" ref={lastnameRef} />
-      </label>
-      <br />
+  
 
       <label>
         Email:
-        <input type="email" ref={emailRef} placeholder="http://"/>
+        <input type="email" ref={emailRef} />
       </label>
       <br />
 
       <label>
         Portfolio Website:
-        <input type="text" ref={portfoliowebsiteRef} />
+        <input type="text" ref={portfoliowebsiteRef} placeholder="http://"/>
       </label>
       <br />
 
-      <label>
-        Position:
-        <select ref={positionRef}>
-          <option value="" disabled>-- Select a Position --</option>
-          <option value="securityAnalyst">Security Analyst</option>
-          <option value="tester">Tester</option>
-          <option value="softwareEngineer">Software Engineer</option>
-          <option value="frontEndDeveloper">Front End Developer</option>
-        </select>
-      </label>
-      <br />
+      
+      <div className="position-row">
+    <span>Position you are applying for * </span>
+    <select ref={positionRef}>
+        <option value="" disabled selected>-- Select a Position --</option>
+        <option value="securityAnalyst">Security Analyst</option>
+        <option value="tester">Tester</option>
+        <option value="softwareEngineer">Software Engineer</option>
+        <option value="frontEndDeveloper">Front End Developer</option>
+    </select>
+</div>
+<br />
 
-      <label>
-        Phone *(Must be 10 digits):
-        <input type="number" ref={phoneRef} />
-      </label>
-      <br />
+
+<label class="phone-label">
+    Phone *(Must be 10 digits):
+    <input 
+        type="text" 
+        ref={phoneRef} 
+        maxLength="10" 
+        pattern="\d{10}" 
+        onInput={(e) => e.target.value = e.target.value.replace(/\D/, '').slice(0, 10)} 
+        title="Please enter a 10-digit phone number"
+        className="phone-input" />
+</label>
+<br />
+
 
       <label>
         Are you willing to relocate?:
-        <input type="radio" value = "Yes" ref={relocateRef} /> Yes
-        <input type="radio" value = "No" ref={relocateRef} /> No
-        <input type="radio" value = "NotSure" ref={relocateRef} /> Not Sure
-        
+        <div>
+            <input type="radio" name="relocate" value="Yes" ref={yesRef} /> Yes
+            <input type="radio" name="relocate" value="No" ref={noRef} /> No
+            <input type="radio" name="relocate" value="NotSure" ref={notSureRef} /> Not Sure
+        </div>
       </label>
       <br />
-    
-
 
       <label>
-        Reference/ Comments/ Questions
-        <input type="text" ref={messageRef} />
-      </label>
-      <br />
+    Reference/ Comments/ Questions:
+    <textarea ref={messageRef}></textarea>
+</label>
 
+      <br />
       
       <div className="button-group">
         <button type="submit">Send Application</button>
